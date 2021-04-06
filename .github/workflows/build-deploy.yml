@@ -16,7 +16,7 @@ jobs:
             - name: Cache NPM dependencies
               uses: actions/cache@v2
               with:
-                  path: cliente/node_modules
+                  path: node_modules
                   key: ${{ runner.OS }}-npm-cache
                   restore-keys: |
                       ${{ runner.OS }}-npm-cache
