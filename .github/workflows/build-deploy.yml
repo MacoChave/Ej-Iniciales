@@ -8,21 +8,22 @@ jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
-              uses: actions/checkout@v1
-            - uses: actions/setup-node@v1 #this installs node and npm for us
+            - uses: actions/checkout@v2
+            - name: Use Node.js 12.x
+              uses: actions/setup-node@v1
               with:
                   node-version: '12.x'
-            - uses: actions/cache@v1 # this allows for re-using node_modules caching, making builds a bit faster.
+            - name: Cache NPM dependencies
+              uses: actions/cache@v2
               with:
-                  path: ~/.npm
-                  key: ${{ runner.os }}-node-${{ hashFiles('**/cliente/package.json') }}
+                  path: cliente/node_modules
+                  key: ${{ runner.OS }}-npm-cache
                   restore-keys: |
-                      ${{ runner.os }}-node-
+                      ${{ runner.OS }}-npm-cache
+            - name: Install Dependencies
+              run: npm install
             - name: Build
-              run: |
-                  npm install
-                  npm run-script deploy
+              run: npm run deploy
             - name: Deploy
               uses: JamesIves/github-pages-deploy-action@releases/v3
               with:
