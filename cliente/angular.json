@@ -120,9 +120,16 @@
               "devServerTarget": "cliente:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
     }
   },
-  "defaultProject": "cliente"
+  "defaultProject": "cliente",
+  "cli": {
+    "analytics": "bed48a6e-b7b5-409b-aa9d-a1189a0f64ed"
+  }
 }

@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+    # frontend:
+    #     container_name: webapp
+    #     build: ./cliente
+    #     ports:
+    #         - '80:80'
+    apypython:
+        container_name: pythonserver
+        build: ./server
+        expose:
+            - '3000'
+        ports:
+            - '3000:3000'
+        links:
+            - database
+        depends_on:
+            - database
+    database:
+        image: mysql:5.7
+        restart: always
+        environment:
+            MYSQL_DATABASE: 'db'
+            MYSQL_USER: 'user'
+            MYSQL_PASSWORD: 'password'
+            MYSQL_ROOT_PASSWORD: 'password'
+        ports:
+            - '3306:3306'
+        expose:
+            - '3306'
+        volumes:
+            - my-db:/var/lib/mysql
+volumes:
+    my-db:
+
+    # database:
+    #     image: mongo:latest
+    #     volumes:
+    #         - ./dbdata:/dbdata
+    #     expose:
+    #         - '27017'
+    #         - '27019'
+    #     ports:
+    #         - '27017:27017'
+    #         - '27019:27019'
